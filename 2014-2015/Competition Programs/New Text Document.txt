@@ -1,0 +1,29 @@
+void drivetrain()
+{
+	int left = 0;
+	int right = 0;
+	int scaled;
+
+	if(abs(joystick.joy1_x2) > joystick_threshold)
+	{
+		scaled = joystick_scale(joystick.joy1_x2);
+		left = right = scaled;
+	}
+
+	if(abs(joystick.joy1_y1) > joystick_threshold)
+	{
+		scaled = joystick_scale(joystick.joy1_y1);
+		left += scaled;
+		right -= scaled;
+	}
+
+	// bound to -100 to 100
+	if (left > 100) left = 100;
+	if (left < -100) left = -100;
+	if (right > 100) right = 100;
+	if (right < -100) right = -100;
+
+
+	motor[leftdrive1] = left;
+	motor[rightdrive1] = right;
+}
